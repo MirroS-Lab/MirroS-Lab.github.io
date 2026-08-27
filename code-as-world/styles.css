@@ -8936,3 +8936,18 @@ p {
     font-size: 28px;
   }
 }
+
+.button-disabled,
+.button-disabled:hover {
+  border-color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 255, 255, 0.68);
+  background: rgba(11, 9, 18, 0.24);
+  transform: none;
+}
+
+.button-disabled {
+  appearance: none;
+  font-family: inherit;
+  cursor: default;
+  opacity: 1;
+}
