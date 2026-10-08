@@ -15,7 +15,7 @@ Large presentation assets are web-optimized before being committed: the opening 
 ## AgentGarten
 
 - Site: <https://mirros-lab.github.io/agent-garten/>
-- Upstream project page: `sakii-ko/code-world-proj-page`, branch `results-page` (commit `9e968f2`)
+- Upstream project page: `sakii-ko/code-world-proj-page`, branch `results-page` (commit `ebbae43`)
 - Published path: `agent-garten/`
 
 The deployed snapshot is the page with the media it references: `index.html`, `assets/` and `media/`. It omits the upstream Git history, the build scripts and the provenance records. The film is encoded as H.264 at 1070 kbit/s with its original audio; the other clips and images are the upstream page's own web-sized files.

@@ -15,6 +15,9 @@
   <link rel="canonical" href="https://mirros-lab.github.io/agent-garten/">
   <link rel="icon" href="assets/img/mirros-mark.svg" type="image/svg+xml">
   <link rel="preload" href="media/hero.jpg" as="image">
+  <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/poppins-500-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/site.css?v=cc0d8fef67">
 </head>
 <body>
@@ -99,7 +102,7 @@
       <p class="section-kicker">The film</p>
       <h2>Step inside the worlds</h2>
       <!-- <p class="section-lede">A two-and-a-half-minute tour with narration.</p> -->
-      <div class="film"><video src="media/film.mp4" poster="media/film.jpg" controls preload="none" playsinline></video></div>
+      <div class="film"><video src="media/film.mp4" data-poster="media/film.jpg" controls preload="none" playsinline></video></div>
     </div>
   </section>
 
@@ -121,15 +124,15 @@
         </div>
       </div>
       <figure class="hns-main">
-        <video src="media/hns/views.mp4" poster="media/hns/views.jpg" width="832" height="480" muted loop playsinline preload="none" data-autoplay></video>
+        <video src="media/hns/views.mp4" data-poster="media/hns/views.jpg" width="832" height="480" muted loop playsinline preload="none" data-autoplay></video>
         <figcaption>The overhead view of a game, with the agent's own first-person view in the corner.</figcaption>
       </figure>
       <div class="hns-grid">
-        <figure><video src="media/hns/panel-cover.mp4" poster="media/hns/panel-cover.jpg" width="600" height="346" muted loop playsinline preload="none" data-autoplay></video>
+        <figure><video src="media/hns/panel-cover.mp4" data-poster="media/hns/panel-cover.jpg" width="600" height="346" muted loop playsinline preload="none" data-autoplay></video>
           <figcaption><span>Build cover</span>A hider moves a panel to rebuild cover.</figcaption></figure>
-        <figure><video src="media/hns/ramp-over-wall.mp4" poster="media/hns/ramp-over-wall.jpg" width="600" height="346" muted loop playsinline preload="none" data-autoplay></video>
+        <figure><video src="media/hns/ramp-over-wall.mp4" data-poster="media/hns/ramp-over-wall.jpg" width="600" height="346" muted loop playsinline preload="none" data-autoplay></video>
           <figcaption><span>Find a way</span>A seeker carries a ramp over the wall.</figcaption></figure>
-        <figure><video src="media/hns/ramp-retry.mp4" poster="media/hns/ramp-retry.jpg" width="600" height="346" muted loop playsinline preload="none" data-autoplay></video>
+        <figure><video src="media/hns/ramp-retry.mp4" data-poster="media/hns/ramp-retry.jpg" width="600" height="346" muted loop playsinline preload="none" data-autoplay></video>
           <figcaption><span>Learn and retry</span>A seeker moves the ramp closer and retries.</figcaption></figure>
       </div>
 
@@ -157,7 +160,7 @@
         <!-- agent-worlds:start -->
         <article class="world" data-round="1">
           <div class="world-media">
-            <video src="media/agents/corgi-round-1.mp4" poster="media/agents/corgi-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="Companion dog: Keep a dog willingly engaged for a 60-second session by offering a hand, petting, and playing with a ball."></video>
+            <video src="media/agents/corgi-round-1.mp4" data-poster="media/agents/corgi-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="Companion dog: Keep a dog willingly engaged for a 60-second session by offering a hand, petting, and playing with a ball."></video>
             <div class="world-switch" role="group" aria-label="Companion dog: round shown"><button type="button" data-round="1" data-video="media/agents/corgi-round-1.mp4" data-poster="media/agents/corgi-round-1.jpg" aria-pressed="true">Round 1</button><button type="button" data-round="4" data-video="media/agents/corgi-round-4.mp4" data-poster="media/agents/corgi-round-4.jpg" aria-pressed="false">Round 4</button></div>
           </div>
           <h4>Companion dog</h4>
@@ -169,7 +172,7 @@
         </article>
         <article class="world" data-round="1">
           <div class="world-media">
-            <video src="media/agents/bridge-round-1.mp4" poster="media/agents/bridge-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="One-lane bridge: Two cars, each driven by its own agent from the windshield view, must swap ends of a bridge that fits one car."></video>
+            <video src="media/agents/bridge-round-1.mp4" data-poster="media/agents/bridge-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="One-lane bridge: Two cars, each driven by its own agent from the windshield view, must swap ends of a bridge that fits one car."></video>
             <div class="world-switch" role="group" aria-label="One-lane bridge: round shown"><button type="button" data-round="1" data-video="media/agents/bridge-round-1.mp4" data-poster="media/agents/bridge-round-1.jpg" aria-pressed="true">Round 1</button><button type="button" data-round="4" data-video="media/agents/bridge-round-4.mp4" data-poster="media/agents/bridge-round-4.jpg" aria-pressed="false">Round 4</button></div>
           </div>
           <h4>One-lane bridge</h4>
@@ -181,7 +184,7 @@
         </article>
         <article class="world" data-round="1">
           <div class="world-media">
-            <video src="media/agents/herding-round-1.mp4" poster="media/agents/herding-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="Herding: Two dogs, seeing only from their own eye height, guide four sheep into a pen and hold them there for five seconds."></video>
+            <video src="media/agents/herding-round-1.mp4" data-poster="media/agents/herding-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="Herding: Two dogs, seeing only from their own eye height, guide four sheep into a pen and hold them there for five seconds."></video>
             <div class="world-switch" role="group" aria-label="Herding: round shown"><button type="button" data-round="1" data-video="media/agents/herding-round-1.mp4" data-poster="media/agents/herding-round-1.jpg" aria-pressed="true">Round 1</button><button type="button" data-round="4" data-video="media/agents/herding-round-4.mp4" data-poster="media/agents/herding-round-4.jpg" aria-pressed="false">Round 4</button></div>
           </div>
           <h4>Herding</h4>
@@ -193,7 +196,7 @@
         </article>
         <article class="world" data-round="1">
           <div class="world-media">
-            <video src="media/agents/loader-round-1.mp4" poster="media/agents/loader-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="Quarry loader: A wheel loader must push two rocks onto staging pads, deliver one to a bunker behind a wall, and park, within 360 seconds."></video>
+            <video src="media/agents/loader-round-1.mp4" data-poster="media/agents/loader-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="Quarry loader: A wheel loader must push two rocks onto staging pads, deliver one to a bunker behind a wall, and park, within 360 seconds."></video>
             <div class="world-switch" role="group" aria-label="Quarry loader: round shown"><button type="button" data-round="1" data-video="media/agents/loader-round-1.mp4" data-poster="media/agents/loader-round-1.jpg" aria-pressed="true">Round 1</button><button type="button" data-round="4" data-video="media/agents/loader-round-4.mp4" data-poster="media/agents/loader-round-4.jpg" aria-pressed="false">Round 4</button></div>
           </div>
           <h4>Quarry loader</h4>
@@ -234,7 +237,7 @@
       </figure>
       <div class="realtime">
         <div class="realtime-clip">
-          <video src="media/gallery/tpv-explore.mp4" poster="media/gallery/tpv-explore.jpg" muted loop playsinline preload="none" data-autoplay aria-label="A third-person walk along a lakeshore, rendered by the real-time renderer"></video>
+          <video src="media/gallery/tpv-explore.mp4" data-poster="media/gallery/tpv-explore.jpg" muted loop playsinline preload="none" data-autoplay aria-label="A third-person walk along a lakeshore, rendered by the real-time renderer"></video>
           <span class="realtime-tag">Real-time renderer · native speed</span>
         </div>
         <div class="realtime-text">
@@ -396,6 +399,6 @@
   }
 ]
 </script>
-<script src="assets/js/site.js?v=82888736c6" defer></script>
+<script src="assets/js/site.js?v=39323ccfa2" defer></script>
 </body>
 </html>

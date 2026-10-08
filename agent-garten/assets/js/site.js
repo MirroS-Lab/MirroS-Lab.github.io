@@ -30,6 +30,24 @@ function syncMotion() {
 }
 
 document.querySelectorAll("video[data-autoplay]").forEach((video) => watchVideo(video));
+
+// Posters and stills are fetched as their block nears the viewport, not with the page.
+const approaching = new Map();
+const approach = new IntersectionObserver((entries) => {
+  for (const { target, isIntersecting } of entries) {
+    if (!isIntersecting) continue;
+    approach.unobserve(target);
+    approaching.get(target)();
+    approaching.delete(target);
+  }
+}, { rootMargin: "800px 0px" });
+
+function whenNear(target, load) {
+  approaching.set(target, load);
+  approach.observe(target);
+}
+
+document.querySelectorAll("video[data-poster]").forEach((video) => whenNear(video, () => { video.poster = video.dataset.poster; }));
 reducedMotion.addEventListener("change", () => {
   motionPaused = reducedMotion.matches;
   syncMotion();
@@ -125,7 +143,7 @@ function paintVideoFrames(video, draw) {
   video.dataset.src = root.dataset.src;
   const poster = new Image();
   poster.addEventListener("load", draw);
-  poster.src = root.dataset.poster;
+  whenNear(root, () => { poster.src = root.dataset.poster; });
 
   function draw() {
     const value = Math.round(state.split * 100);
@@ -234,7 +252,7 @@ function paintVideoFrames(video, draw) {
       codeCtx.drawImage(source, 0, 0, half, height, 0, 0, code.width, code.height);
     }
     poster.addEventListener("load", draw);
-    poster.src = item.poster;
+    whenNear(clip, () => { poster.src = item.poster; });
     paintVideoFrames(video, draw);
     const cue = document.createElement("span");
     cue.className = "clip-cue";
@@ -345,6 +363,7 @@ document.getElementById("copy-bibtex").addEventListener("click", async (event) =
       buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
       card.dataset.round = button.dataset.round;
       const playing = !video.paused;
+      video.dataset.poster = button.dataset.poster;
       video.poster = button.dataset.poster;
       video.src = button.dataset.video;
       video.load();
