@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eceaee">
+  <title>AgentGarten: Code Worlds for Evolving Agents</title>
+  <meta name="description" content="Executable environments with a real-time neural renderer: code keeps the world, a learned renderer shows it.">
+  <meta property="og:title" content="AgentGarten: Code Worlds for Evolving Agents">
+  <meta property="og:description" content="Executable environments with a real-time neural renderer.">
+  <meta property="og:image" content="https://mirros-lab.github.io/agent-garten/media/hero.jpg">
+  <meta property="og:url" content="https://mirros-lab.github.io/agent-garten/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://mirros-lab.github.io/agent-garten/">
+  <link rel="icon" href="assets/img/mirros-mark.svg" type="image/svg+xml">
+  <link rel="preload" href="media/hero.jpg" as="image">
+  <link rel="stylesheet" href="assets/css/site.css?v=cc0d8fef67">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header">
+  <div class="nav-shell">
+    <a class="brand" href="#top" aria-label="AgentGarten home">
+      <img src="assets/img/mirros-mark.svg" width="32" height="32" alt="">
+      <span>AgentGarten</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">＋</span></button>
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <a href="#overview">The idea</a>
+      <a href="#film">Film</a>
+      <a href="#agents">Evolving agents</a>
+      <a href="#worlds">Worlds</a>
+      <a href="#method">How it works</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+<section class="hero" id="top" aria-labelledby="project-title">
+  <div class="hero-media" aria-hidden="true">
+    <video src="media/hero.mp4" poster="media/hero.jpg" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay></video>
+  </div>
+  <div class="wrap hero-inner">
+    <h1 id="project-title" aria-label="AgentGarten: Code Worlds for Evolving Agents"><span class="project-name"><span>Agent</span>Garten</span><span class="project-subtitle">Code Worlds for Evolving Agents</span></h1>
+    <p class="subtitle">Executable environments with a real-time neural renderer</p>
+    <nav class="actions" aria-label="Resources">
+      <a class="btn is-primary" href="#film">Watch video <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></a>
+      <a class="btn" data-resource="report" href="https://mirros.ai/report/agent-garten.pdf">Technical report <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M8 13h8 M8 17h6"/></svg></a>
+      <a class="btn" href="https://mirros.ai/blog/worlds-for-evolving-agents">Blog <span aria-hidden="true">↗</span></a>
+      <a class="btn" data-resource="code" href="https://github.com/MirroS-Lab/AgentGarten">Code <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18"/></svg></a>
+      <a class="btn" href="#citation">BibTeX</a>
+    </nav>
+  </div>
+</section>
+
+  <section id="overview" aria-labelledby="overview-title">
+    <div class="wrap">
+      <div class="section-heading overview-heading">
+        <div><p class="section-kicker">The idea</p><h2 id="overview-title">Code keeps the world.<br>The renderer shows it.</h2></div>
+        <p class="lede">We keep each world as <em>code</em>: objects, rules and goals live in an executable
+        program. A learned <em>neural renderer</em> turns the geometry that program exports into what the
+        agent sees next, in real time. Drag across the frame to compare the two.</p>
+      </div>
+      <div id="layers">
+      <div class="explorer-controls">
+        <div class="seg" data-side="left" role="group" aria-label="Code world layer">
+          <button type="button" data-layer="0" aria-pressed="true">Untextured</button>
+          <button type="button" data-layer="1" aria-pressed="false">Normals</button>
+          <button type="button" data-layer="2" aria-pressed="false">Depth</button>
+        </div>
+        <div class="seg" data-side="right" role="group" aria-label="Rendered style">
+          <button type="button" data-layer="3" aria-pressed="true">style1</button>
+          <button type="button" data-layer="4" aria-pressed="false">style2</button>
+          <button type="button" data-layer="5" aria-pressed="false">style3</button>
+        </div>
+      </div>
+      <div class="explorer-panel">
+      <div class="panel-heading"><span><i class="status-dot" aria-hidden="true"></i> From geometry to observation</span><span>Drag to compare <span aria-hidden="true">↔</span></span></div>
+      <div class="explorer" id="explorer" data-src="media/layers.mp4" data-poster="media/layers.jpg">
+        <canvas width="832" height="480" aria-label="Code world layer compared with the rendered frame"></canvas>
+        <span class="explorer-tag is-left" id="tag-left">Untextured</span>
+        <span class="explorer-tag is-right" id="tag-right">style1</span>
+        <div class="explorer-handle" id="handle" role="slider" tabindex="0" aria-label="Code world visibility" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% code world" aria-orientation="horizontal"></div>
+      </div>
+      </div>
+      </div>
+      <!-- <ul class="facts"> -->
+      <!--   <li><strong>Executable worlds</strong>State and rules live in code, where they can be inspected and edited.</li> -->
+      <!--   <li><strong>Geometry is the interface</strong>Code talks to the renderer only through depth or surface normals.</li> -->
+      <!--   <li><strong>Real time</strong>Over 30 frames per second at 480&#8239;×&#8239;832 on one H100.</li> -->
+      <!--   <li><strong>One world, many looks</strong>Change the visual style without building new assets.</li> -->
+      <!-- </ul> -->
+    </div>
+  </section>
+
+  <section id="film" class="band is-dark">
+    <div class="wrap">
+      <p class="section-kicker">The film</p>
+      <h2>Step inside the worlds</h2>
+      <!-- <p class="section-lede">A two-and-a-half-minute tour with narration.</p> -->
+      <div class="film"><video src="media/film.mp4" poster="media/film.jpg" controls preload="none" playsinline></video></div>
+    </div>
+  </section>
+
+  <section id="agents">
+    <div class="wrap">
+      <p class="section-kicker">Evolving agents</p>
+      <h2>Agents that improve from experience</h2>
+      <p class="section-lede">Pretrained agents play inside these worlds, seeing only rendered camera
+          frames. After each round they write down what they learned, and
+          the next round starts from those notes.</p>
+      <div class="stats" id="hide-and-seek">
+        <div class="stat">
+          <p class="stat-label">Build shelters</p>
+          <div class="stat-pair"><p class="stat-ours">4<small>rounds played<br>our visual agents</small></p><p class="stat-ref">≈25M<small>training episodes<br>OpenAI self-play RL</small></p></div>
+        </div>
+        <div class="stat">
+          <p class="stat-label">Use ramps to enter shelters</p>
+          <div class="stat-pair"><p class="stat-ours">10<small>rounds played<br>our visual agents</small></p><p class="stat-ref">≈100M<small>training episodes<br>OpenAI self-play RL</small></p></div>
+        </div>
+      </div>
+      <figure class="hns-main">
+        <video src="media/hns/views.mp4" poster="media/hns/views.jpg" width="832" height="480" muted loop playsinline preload="none" data-autoplay></video>
+        <figcaption>The overhead view of a game, with the agent's own first-person view in the corner.</figcaption>
+      </figure>
+      <div class="hns-grid">
+        <figure><video src="media/hns/panel-cover.mp4" poster="media/hns/panel-cover.jpg" width="600" height="346" muted loop playsinline preload="none" data-autoplay></video>
+          <figcaption><span>Build cover</span>A hider moves a panel to rebuild cover.</figcaption></figure>
+        <figure><video src="media/hns/ramp-over-wall.mp4" poster="media/hns/ramp-over-wall.jpg" width="600" height="346" muted loop playsinline preload="none" data-autoplay></video>
+          <figcaption><span>Find a way</span>A seeker carries a ramp over the wall.</figcaption></figure>
+        <figure><video src="media/hns/ramp-retry.mp4" poster="media/hns/ramp-retry.jpg" width="600" height="346" muted loop playsinline preload="none" data-autoplay></video>
+          <figcaption><span>Learn and retry</span>A seeker moves the ramp closer and retries.</figcaption></figure>
+      </div>
+
+      <div class="agents-block">
+        <h3 class="block-title">How a round works</h3>
+      <div class="loop" role="group" aria-label="One round of practice: read the task, play, write a playbook, archive it for later rounds">
+        <p class="loop-heading"><span class="loop-tag">Agent Loop</p>
+        <ol class="loop-track">
+          <li class="loop-stage"><h3><span class="loop-step">1</span>Read</h3>
+            <button type="button" class="loop-file" data-file="corgi-task" aria-haspopup="dialog">task.md<i></i><i></i><i></i></button></li>
+          <li class="loop-stage"><h3><span class="loop-step">2</span>Play</h3>
+            <div class="loop-lanes" aria-hidden="true"><span>Agent 1<b><i style="--i: 0"></i></b></span><span>Agent 2<b><i style="--i: 1"></i></b></span><span>Agent 3<b><i style="--i: 2"></i></b></span><span>Agent 4<b><i style="--i: 3"></i></b></span></div>
+        </li>
+          <li class="loop-stage"><h3><span class="loop-step">3</span>Write</h3>
+            <button type="button" class="loop-file" data-file="corgi-playbook-r4" aria-haspopup="dialog">playbook.md<em>Alternating offer plus two chest strokes with single ball interactions, with withdrawals between activities, may sustain approach.</em></button></li>
+          <li class="loop-stage"><h3><span class="loop-step">4</span>Archive</h3>
+            <button type="button" class="loop-file is-small" data-file="corgi-playbook-r1" aria-haspopup="dialog">Round 1</button><button type="button" class="loop-file is-small" data-file="corgi-playbook-r2" aria-haspopup="dialog">Round 2</button><button type="button" class="loop-file is-small" data-file="corgi-playbook-r3" aria-haspopup="dialog">Round 3</button></li>
+        </ol>
+        <p class="loop-return">Next round: new agents start from the task and every earlier playbook</p>
+      </div>
+      </div>
+      <div class="agents-block">
+        <h3 class="block-title">The same loop in other worlds</h3>
+        <div class="worlds-grid">
+        <!-- agent-worlds:start -->
+        <article class="world" data-round="1">
+          <div class="world-media">
+            <video src="media/agents/corgi-round-1.mp4" poster="media/agents/corgi-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="Companion dog: Keep a dog willingly engaged for a 60-second session by offering a hand, petting, and playing with a ball."></video>
+            <div class="world-switch" role="group" aria-label="Companion dog: round shown"><button type="button" data-round="1" data-video="media/agents/corgi-round-1.mp4" data-poster="media/agents/corgi-round-1.jpg" aria-pressed="true">Round 1</button><button type="button" data-round="4" data-video="media/agents/corgi-round-4.mp4" data-poster="media/agents/corgi-round-4.jpg" aria-pressed="false">Round 4</button></div>
+          </div>
+          <h4>Companion dog</h4>
+          <p class="world-task">Keep a dog willingly engaged for a 60-second session by offering a hand, petting, and playing with a ball.</p>
+          <p class="world-metric">Engagement score</p>
+          <svg class="world-curve" viewBox="0 0 300 112" role="img" aria-label="Engagement score. round 1: 13, round 2: 14, round 3: 19, round 4: 19."><line class="axis" x1="14" x2="286" y1="90.0" y2="90.0"/><polyline class="line" points="24.0,48.4 108.0,45.2 192.0,29.2 276.0,29.2"/><g class="pt pt-1"><circle class="dot" cx="24.0" cy="48.4" r="3.6"/><text class="value" x="24.0" y="39.4">13</text><text class="tick" x="24.0" y="106">Round 1</text></g><g class="pt pt-2"><circle class="dot" cx="108.0" cy="45.2" r="3.6"/><text class="value" x="108.0" y="36.2">14</text><text class="tick" x="108.0" y="106">Round 2</text></g><g class="pt pt-3"><circle class="dot" cx="192.0" cy="29.2" r="3.6"/><text class="value" x="192.0" y="20.2">19</text><text class="tick" x="192.0" y="106">Round 3</text></g><g class="pt pt-4"><circle class="dot" cx="276.0" cy="29.2" r="3.6"/><text class="value" x="276.0" y="20.2">19</text><text class="tick" x="276.0" y="106">Round 4</text></g></svg>
+          <p class="world-change">By round 4 the agent alternates an offered hand and two chest strokes with brief ball play, pausing in between.</p>
+          <div class="file-chips"><button type="button" class="file-chip" data-file="corgi-task" aria-haspopup="dialog">task.md</button><button type="button" class="file-chip" data-file="corgi-playbook-r1" aria-haspopup="dialog">playbook · round 1</button><button type="button" class="file-chip" data-file="corgi-playbook-r4" aria-haspopup="dialog">playbook · round 4</button></div>
+        </article>
+        <article class="world" data-round="1">
+          <div class="world-media">
+            <video src="media/agents/bridge-round-1.mp4" poster="media/agents/bridge-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="One-lane bridge: Two cars, each driven by its own agent from the windshield view, must swap ends of a bridge that fits one car."></video>
+            <div class="world-switch" role="group" aria-label="One-lane bridge: round shown"><button type="button" data-round="1" data-video="media/agents/bridge-round-1.mp4" data-poster="media/agents/bridge-round-1.jpg" aria-pressed="true">Round 1</button><button type="button" data-round="4" data-video="media/agents/bridge-round-4.mp4" data-poster="media/agents/bridge-round-4.jpg" aria-pressed="false">Round 4</button></div>
+          </div>
+          <h4>One-lane bridge</h4>
+          <p class="world-task">Two cars, each driven by its own agent from the windshield view, must swap ends of a bridge that fits one car.</p>
+          <p class="world-metric">Seconds until both cars arrive · lower is better</p>
+          <svg class="world-curve" viewBox="0 0 300 112" role="img" aria-label="Seconds until both cars arrive · lower is better. round 1: 71 s, round 2: 68 s, round 3: 45 s, round 4: 41 s."><line class="axis" x1="14" x2="286" y1="90.0" y2="90.0"/><polyline class="line" points="24.0,33.2 108.0,35.6 192.0,54.0 276.0,57.2"/><g class="pt pt-1"><circle class="dot" cx="24.0" cy="33.2" r="3.6"/><text class="value" x="24.0" y="24.2">71 s</text><text class="tick" x="24.0" y="106">Round 1</text></g><g class="pt pt-2"><circle class="dot" cx="108.0" cy="35.6" r="3.6"/><text class="value" x="108.0" y="26.6">68 s</text><text class="tick" x="108.0" y="106">Round 2</text></g><g class="pt pt-3"><circle class="dot" cx="192.0" cy="54.0" r="3.6"/><text class="value" x="192.0" y="45.0">45 s</text><text class="tick" x="192.0" y="106">Round 3</text></g><g class="pt pt-4"><circle class="dot" cx="276.0" cy="57.2" r="3.6"/><text class="value" x="276.0" y="48.2">41 s</text><text class="tick" x="276.0" y="106">Round 4</text></g></svg>
+          <p class="world-change">Blue learns to yield on the bank, turn while red passes, and re-center on the bridge without waiting.</p>
+          <div class="file-chips"><button type="button" class="file-chip" data-file="bridge-task" aria-haspopup="dialog">task.md</button><button type="button" class="file-chip" data-file="bridge-playbook-r1" aria-haspopup="dialog">playbook · round 1</button><button type="button" class="file-chip" data-file="bridge-playbook-r4" aria-haspopup="dialog">playbook · round 4</button></div>
+        </article>
+        <article class="world" data-round="1">
+          <div class="world-media">
+            <video src="media/agents/herding-round-1.mp4" poster="media/agents/herding-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="Herding: Two dogs, seeing only from their own eye height, guide four sheep into a pen and hold them there for five seconds."></video>
+            <div class="world-switch" role="group" aria-label="Herding: round shown"><button type="button" data-round="1" data-video="media/agents/herding-round-1.mp4" data-poster="media/agents/herding-round-1.jpg" aria-pressed="true">Round 1</button><button type="button" data-round="4" data-video="media/agents/herding-round-4.mp4" data-poster="media/agents/herding-round-4.jpg" aria-pressed="false">Round 4</button></div>
+          </div>
+          <h4>Herding</h4>
+          <p class="world-task">Two dogs, seeing only from their own eye height, guide four sheep into a pen and hold them there for five seconds.</p>
+          <p class="world-metric">Score · out of 100</p>
+          <svg class="world-curve" viewBox="0 0 300 112" role="img" aria-label="Score · out of 100. round 1: 60, round 2: 90.1, round 3: 87.6, round 4: 88.3."><line class="axis" x1="14" x2="286" y1="90.0" y2="90.0"/><polyline class="line" points="24.0,51.6 108.0,32.3 192.0,34.0 276.0,33.5"/><g class="pt pt-1"><circle class="dot" cx="24.0" cy="51.6" r="3.6"/><text class="value" x="24.0" y="42.6">60</text><text class="tick" x="24.0" y="106">Round 1</text></g><g class="pt pt-2"><circle class="dot" cx="108.0" cy="32.3" r="3.6"/><text class="value" x="108.0" y="23.3">90.1</text><text class="tick" x="108.0" y="106">Round 2</text></g><g class="pt pt-3"><circle class="dot" cx="192.0" cy="34.0" r="3.6"/><text class="value" x="192.0" y="25.0">87.6</text><text class="tick" x="192.0" y="106">Round 3</text></g><g class="pt pt-4"><circle class="dot" cx="276.0" cy="33.5" r="3.6"/><text class="value" x="276.0" y="24.5">88.3</text><text class="tick" x="276.0" y="106">Round 4</text></g></svg>
+          <p class="world-change">Round 1 timed out with three sheep penned. Rounds 2 to 4 penned all four without startling the flock.</p>
+          <div class="file-chips"><button type="button" class="file-chip" data-file="herding-task" aria-haspopup="dialog">task.md</button><button type="button" class="file-chip" data-file="herding-playbook-r1" aria-haspopup="dialog">playbook · round 1</button><button type="button" class="file-chip" data-file="herding-playbook-r4" aria-haspopup="dialog">playbook · round 4</button></div>
+        </article>
+        <article class="world" data-round="1">
+          <div class="world-media">
+            <video src="media/agents/loader-round-1.mp4" poster="media/agents/loader-round-1.jpg" width="640" height="370" muted loop playsinline preload="none" data-autoplay aria-label="Quarry loader: A wheel loader must push two rocks onto staging pads, deliver one to a bunker behind a wall, and park, within 360 seconds."></video>
+            <div class="world-switch" role="group" aria-label="Quarry loader: round shown"><button type="button" data-round="1" data-video="media/agents/loader-round-1.mp4" data-poster="media/agents/loader-round-1.jpg" aria-pressed="true">Round 1</button><button type="button" data-round="4" data-video="media/agents/loader-round-4.mp4" data-poster="media/agents/loader-round-4.jpg" aria-pressed="false">Round 4</button></div>
+          </div>
+          <h4>Quarry loader</h4>
+          <p class="world-task">A wheel loader must push two rocks onto staging pads, deliver one to a bunker behind a wall, and park, within 360 seconds.</p>
+          <p class="world-metric">Score · out of 100</p>
+          <svg class="world-curve" viewBox="0 0 300 112" role="img" aria-label="Score · out of 100. round 1: 30, round 2: 0, round 3: 30, round 4: 90.9."><line class="axis" x1="14" x2="286" y1="90.0" y2="90.0"/><polyline class="line" points="24.0,70.8 108.0,90.0 192.0,70.8 276.0,31.8"/><g class="pt pt-1"><circle class="dot" cx="24.0" cy="70.8" r="3.6"/><text class="value" x="24.0" y="61.8">30</text><text class="tick" x="24.0" y="106">Round 1</text></g><g class="pt pt-2"><circle class="dot" cx="108.0" cy="90.0" r="3.6"/><text class="value" x="108.0" y="81.0">0</text><text class="tick" x="108.0" y="106">Round 2</text></g><g class="pt pt-3"><circle class="dot" cx="192.0" cy="70.8" r="3.6"/><text class="value" x="192.0" y="61.8">30</text><text class="tick" x="192.0" y="106">Round 3</text></g><g class="pt pt-4"><circle class="dot" cx="276.0" cy="31.8" r="3.6"/><text class="value" x="276.0" y="22.8">90.9</text><text class="tick" x="276.0" y="106">Round 4</text></g></svg>
+          <p class="world-change">Round 1 cleared the rocks and got no further. Round 4 cleared them, delivered one and parked, with 31 seconds to spare.</p>
+          <div class="file-chips"><button type="button" class="file-chip" data-file="loader-task" aria-haspopup="dialog">task.md</button><button type="button" class="file-chip" data-file="loader-playbook-r1" aria-haspopup="dialog">playbook · round 1</button><button type="button" class="file-chip" data-file="loader-playbook-r4" aria-haspopup="dialog">playbook · round 4</button></div>
+        </article>
+        <!-- agent-worlds:end -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="worlds" class="band">
+    <div class="wrap">
+      <p class="section-kicker">World gallery</p>
+      <h2>A playground of possibilities</h2>
+      <!-- <p class="section-lede">Navigation, manipulation, tool use, physics and multi-agent games share one -->
+      <!--   renderer; a new world needs code, not new visual assets. Hover over a clip, or tap it on a -->
+      <!--   phone, to see the code world it was rendered from.<span class="visually-hidden"> With a keyboard, focus a clip and press Enter.</span></p> -->
+      <p class="gallery-status visually-hidden" id="gallery-status" role="status">Loading worlds…</p>
+      <div class="gallery" id="gallery"></div>
+      <noscript><p>Enable JavaScript to explore the world gallery and compare rendering layers.</p></noscript>
+  </div>
+  </section>
+
+  <section id="method">
+    <div class="wrap">
+      <p class="section-kicker">How it works</p>
+      <h2>From an action to the next frame</h2>
+      <figure class="arch">
+        <picture>
+          <source media="(max-width: 760px)" srcset="assets/img/architecture-narrow.png" width="764" height="1800">
+          <img src="assets/img/architecture.png" width="1720" height="596" alt="The interaction loop: the agent sends actions to the code world, where the engine updates the scene and exports depth or surface normals as conditions; the neural renderer turns them, together with a reference image, text and its visual history, into the next observation, which returns to the agent." loading="lazy" decoding="async">
+        </picture>
+      </figure>
+      <div class="realtime">
+        <div class="realtime-clip">
+          <video src="media/gallery/tpv-explore.mp4" poster="media/gallery/tpv-explore.jpg" muted loop playsinline preload="none" data-autoplay aria-label="A third-person walk along a lakeshore, rendered by the real-time renderer"></video>
+          <span class="realtime-tag">Real-time renderer · native speed</span>
+        </div>
+        <div class="realtime-text">
+          <h3>It runs in real time</h3>
+          <p>The renderer generates video in short blocks, and each block is ready before the previous one has finished playing. An agent, or a person at the keyboard, sees the result of an action before choosing the next.</p>
+        </div>
+      </div>
+      <p class="section-lede method-note">The renderer starts from a pretrained video model, learns to follow geometry, and is
+          distilled into a block-by-block student that keeps up with the agent.
+          <a href="https://mirros.ai/blog/worlds-for-evolving-agents">Read how it is built in the blog <span aria-hidden="true">↗</span></a></p>
+    </div>
+  </section>
+
+  <section id="citation" class="wrap">
+    <div class="bibtex-heading-row">
+      <h2>BibTeX</h2>
+      <button type="button" class="bibtex-copy-button" id="copy-bibtex" aria-label="Copy BibTeX citation" title="Copy BibTeX citation">
+        <svg class="bibtex-copy-default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        <svg class="bibtex-copy-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg>
+        <span aria-live="polite">Copy</span>
+      </button>
+    </div>
+    <div class="bibtex">
+      <pre tabindex="0" role="region" aria-label="BibTeX citation"><code id="bibtex">@misc{mirros2026evolvingagents,
+  title  = {{AgentGarten}: Code Worlds for Evolving Agents},
+  author = {{MirroS Team}},
+  year   = {2026},
+  month  = {Sep},
+  url    = {https://mirros.ai/blog/worlds-for-evolving-agents},
+  note   = {Blog post}
+}</code></pre>
+    </div>
+  </section>
+<dialog class="file-dialog" id="file-dialog" aria-labelledby="file-dialog-title">
+  <header><h3 id="file-dialog-title"></h3><button type="button" class="file-dialog-close" aria-label="Close file"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></header>
+  <pre tabindex="0" aria-label="Raw file contents"></pre>
+</dialog>
+<script type="application/json" id="agent-files">
+{"corgi-task": {"name": "task.md", "content": "# Companion dog\n\nKeep this individual dog comfortable and willingly engaged throughout the\n60-second session. Learn which combinations and repetitions work from\nthe RGB observations. This is a synthetic game, not real animal-care advice.\n\n## Actions and time\n\n| Action | Fixed duration | Meaning |\n| --- | ---: | --- |\n| `wait` | 1 s | Hands absent; allow the dog time. |\n| `offer` | 3 s | Extend an open hand for sniffing. |\n| `pet_chest` | 3 s | Gently stroke under the chin and on the chest. |\n| `pet_head` | 3 s | Gently stroke the head. |\n| `play` | 3 s | Move the held orange ball; do not throw it. |\n| `withdraw` | 2 s | Remove the hand/toy and allow space. |\n\nThe listed durations include reaching/withdrawal transitions, not guaranteed\ncontact time. Repeating an activity continues it without restarting its gesture.\n`lookX` and `lookY` optionally range from -1 to 1 (default 0): positive X turns\nright and positive Y looks up. Looking does not move your hand or touch the dog.\nThe world pauses while you think. Actions in a batch execute in order without\nintermediate decisions; the blocking response contains observations for each.\nThe episode time limit can truncate the final action and skip the rest of a batch.\n\n## Reading the dog\n\nTaking small steps toward you and staying nearby is a positive engagement cue.\nTurning aside and stepping away indicates refusal or discomfort.\nReturning to the usual resting spot indicates recovery, not necessarily enjoyment.\nA movement may take time to finish; inspect consecutive observations.\nLooking at a toy alone does not establish enjoyment.\nDo not assume a requested touch appeared: inspect the actual rendered frames.\nYour task is to discover preferences and pacing; no optimal sequence is supplied.\n\n## Evaluation and experience\n\nThe terminal score reflects accumulated comfortable engagement and avoidance\nover the full session, not just the final pose. No numeric mood, hidden preference,\nintermediate reward, renderer prompt or privileged evaluator data is provided.\nObservation appearance may be imperfect; distinguish uncertain visual evidence\nfrom conclusions. Record evidence IDs, failures and hypotheses in your playbook.\nAn inherited playbook is another attempt's claims, not ground truth."}, "corgi-playbook-r1": {"name": "playbook.md · round 1", "content": "One completed 60-second episode; public terminal result score 13, reason time_limit. No inherited playbooks were supplied. Evidence IDs below share prefix 0001/world-01/player/; observations are final RGB frames of each submitted batch.\nObservations: At t000000 the dog faced forward at its resting distance. offer to t000003 showed hand at nose and a head tilt, without an obvious approach. Chest strokes to t000006 then t000009 showed contact under chin/chest and a clear closer position at t000009. A third consecutive chest stroke to t000012 left it back at its initial distance, facing forward. withdraw to t000014 left that pose. play to t000017 showed a modest approach/head tilt with the orange ball visible; repeated play to t000020 reduced the approach. Switching directly to pet_chest at t000023 produced a sideways turn and retreat; the hand was extended short of the dog, so requested contact was not visibly established. withdraw to t000025 left it sideways. Three waits to t000028 showed partial turning back; three more waits to t000031 showed the initial forward-facing resting pose. Thus recovery was visible after eight seconds without contact, not immediately after withdrawal.\nAfter offer to t000034, two chest strokes to t000040 again produced a clear approach. withdraw to t000042 restored resting distance. offer to t000045 plus two chest strokes to t000051 again produced a closer forward-facing dog. withdraw plus wait to t000054 restored resting distance; offer to t000057 and one chest stroke to terminal t000060 left it at resting distance with hand beneath chin. No pet_head was tested.\nHypotheses: Offering first and limiting chest contact to two actions, followed by a short hands-off break, was associated with repeated approaches in this episode. Prolonged contact or switching from repeated ball play directly to chest contact may reduce willingness. These are sequence-specific hypotheses, not validated skills or isolated causal effects. Uncertainties: Duration, ordering, accumulated interaction, and recovery are confounded. A return to resting pose is not proof of enjoyment; looking toward a toy alone is not proof of enjoyment. Only batch-ending frames were used for decisions, so within-batch changes were not assessed. No intermediate numeric reward was available."}, "corgi-playbook-r2": {"name": "playbook.md · round 2", "content": "Completed exactly one 60-second episode. Public terminal result: score 14, reason time_limit. Read the supplied r0001 playbook and its public history; inherited claims were treated as hypotheses. Evidence IDs below have prefix 0002/world-01/player/ and refer to batch-ending RGBs viewed before each next decision.\nObserved sequence: t000000 dog forward-facing at resting distance. offer to t000003 showed hand at nose and head tilt, no clear approach. Two consecutive pet_chest actions to t000009 showed hand beneath chin/chest and a clear closer dog. withdraw then offer to t000014 returned to a resting-distance hand-sniff pose. Two chest strokes to t000020 again showed approach. A batch withdraw, offer, pet_chest, pet_chest to t000031 ended at resting distance with hand under chin, so the earlier approach did not persist across repetitions. withdraw plus three waits to t000036 left a forward-facing dog at resting distance. offer plus two chest strokes to t000045 again ended at resting distance, not an obvious approach.\nwithdraw plus play to t000050 showed the held orange ball and dog visibly closer with tilted head. withdraw plus play to t000055 again showed closer stance/head tilt. A third withdraw plus play to terminal t000060 left the dog near its initial distance facing forward. No endpoint showed a sideways refusal/retreat like that described in inherited notes. No pet_head was tested.\nHypotheses: offer followed by two chest strokes can support early approach, but short withdrawal breaks did not maintain that response indefinitely. A five-second hands-off break did not visibly restore the same approach in the next chest sequence. Changing to a brief ball interaction after withdrawal coincided with renewed approach twice; by the third ball interaction the endpoint approach had faded. Repetition or accumulated interaction may matter, and merely repeating a previously successful sequence is not guaranteed to maintain engagement.\nUncertainties: Only initial and each batch-ending image informed decisions; intermediate per-action images were not reviewed. Thus transient reactions and precise timing within multi-action batches remain unknown. Sequence, duration, cumulative interaction, and breaks are confounded. Forward-facing resting pose is not evidence of enjoyment; ball gaze alone is not evidence of engagement, so the approach comparison is the stronger cue. No intermediate numeric reward was available. Score 14 versus inherited 13 does not isolate a causal improvement."}, "corgi-playbook-r3": {"name": "playbook.md · round 3", "content": "Completed exactly one 60-second episode; public terminal score 19, reason time_limit. Read both inherited playbooks and their public history endpoints. Evidence IDs below share prefix 0003/world-01/player/. Initial and every batch-ending RGB were viewed before the next decision.\nObservations: t000000 dog forward-facing at resting distance. offer to t000003 showed hand at nose and tilted head without clear approach. Two consecutive pet_chest actions to t000009 showed hand beneath chin/chest and a visibly closer dog. withdraw then play to t000014 showed orange ball, tilted head and closer stance. withdraw then offer to t000019 showed resting-distance sniff pose. Two pet_chest actions to t000025 again showed closer stance. withdraw then play to t000030 again showed closer stance and head tilt. Batch withdraw, offer, pet_chest, pet_chest to t000041 ended with visibly closer forward-facing dog and hand at chest. withdraw then play to t000046 again showed closer stance and head tilt, though ball partially obscured face. Batch withdraw, offer, pet_chest, pet_chest to t000057 again showed closer stance with chest contact. Final withdraw plus wait to t000060 returned the dog to its initial resting distance, facing forward, hands absent. No inspected batch endpoint showed sideways refusal. No pet_head was tested.\nHypothesis: Alternating two chest strokes (preceded by offer) with a single ball action, using withdrawal between activities, may sustain approach better than repeatedly using only one activity. Four chest-sequence endpoints and three ball endpoints showed approach in this episode. This is sequence-specific evidence, not a validated optimal policy or isolated causal conclusion.\nUncertainties and limits: Only batch-ending images, not intermediate per-action images, informed decisions. Transient reactions within batches may have been missed. Approach is stronger evidence than gaze alone, and resting pose after withdrawal is not evidence of enjoyment. No intermediate numeric reward was available. The score 19 versus inherited 13 and 14 does not by itself establish causality; ordering, spacing and accumulated exposure differ. Inherited reports of fading responses remain relevant hypotheses despite no clear endpoint fading in this sequence."}, "corgi-playbook-r4": {"name": "playbook.md · round 4", "content": "Completed exactly one 60-second episode; public terminal result score 19, reason time_limit. Read all three inherited playbooks and their public history endpoints. Initial RGB and every batch-ending RGB were viewed before the next decision. Evidence IDs below share prefix 0004/world-01/player/.\nObservations: t000000 showed a forward-facing dog at resting distance. offer to t000003 showed hand at nose and slight head tilt, without clear approach. Two pet_chest actions to t000009 showed hand under chin/chest and clearly closer stance. withdraw then play to t000014 showed closer stance and head tilt with orange ball visible. withdraw then offer to t000019 returned to resting-distance sniff pose. Two chest strokes to t000025 again showed closer forward-facing dog. withdraw then play to t000030 again showed closer stance and head tilt. withdraw, offer, pet_chest, pet_chest to t000041 showed closer stance with hand at chest. withdraw then play to t000046 showed closer stance with head tilt, though toy partially obscured face. withdraw, offer, pet_chest, pet_chest to t000057 again showed closer forward-facing dog. Final withdraw plus wait to t000060 showed hands absent and dog back at initial resting distance. No inspected endpoint showed sideways retreat. No pet_head was tested.\nHypothesis: Alternating offer plus two chest strokes with single ball interactions, with withdrawals between activities, may sustain approach. Four chest endpoints and three ball endpoints showed closer stance. This repeats the inherited r0003 sequence and its score 19, providing another observation of the same pattern but not establishing an optimal policy or independent causal proof.\nFailures and uncertainties: No overt refusal was seen at inspected endpoints, but within-batch per-action frames were not inspected and transient reactions could have been missed. Returning to resting distance after withdrawal is not evidence of enjoyment. Gaze at the ball alone is not sufficient evidence; closer stance is the stronger cue here. Repetition, spacing, ordering, and accumulated interaction remain confounded. Inherited reports of fading responses under other sequences remain hypotheses. No intermediate numeric reward was available."}, "bridge-task": {"name": "task.md", "content": "# Narrow bridge FPV cooperation\n\nYou drive the blue car from inside its cockpit. Your RGB observation is a\nfirst-person windshield view: the dashboard and dark windscreen frame are\nstable body geometry, and the other car, bridge walls and refuge area are\nvisible only when they fall in front of your camera. You do not receive a\nglobal map, coordinates, depth, normal, or the other driver's private action.\nThe operator review page may show global views, but they are not agent inputs.\n\nTogether exchange ends of a continuous one-car-wide bridge within 120\nsimulation seconds. Both cars must finish simultaneously on opposite goals.\nThe bridge fits only ONE car across; the wider paved areas on both banks have\nwhite-outlined pullouts where cars can pass. Grass and water are not drivable.\nYour destination is the disk matching your own car color at the opposite end:\nred on the east bank, blue on the west bank. You start on the other car's disk.\nYou must both occupy your respective destinations to finish; a car that arrives\ndoes not disappear and can still obstruct traffic. The bridge position/length\nvaries between episodes. Road markings and signs are public visual cues.\n\n`forward` and `backward` move at fixed low speed during their two-second atomic\nduration. `turn_left` and `turn_right` steer at a fixed gentle rate for one\nsecond, in place (this is simplified vehicle control, not an Ackermann steering\nsimulator). `wait` holds position for one second. These durations cannot be supplied\nby the agent. Continuous paths are integrated every world tick, not snapped to\ncells. If a move would collide with or cross the other car, BOTH moves are\nblocked and time still passes. The whole vehicle footprint must stay inside\nthe road, and collisions are checked along movement, not just at endpoints.\nFeedback distinguishes a road-edge stop from contact with the other car.\nNo movement itself earns reward.\n\n| Action | Fixed duration | Meaning |\n| --- | ---: | --- |\n| `wait` | 1 s | Hold the steering wheel and remain still for one second. |\n| `forward` | 2 s | Drive forward at a fixed low speed for two seconds. |\n| `backward` | 2 s | Reverse at a fixed low speed for two seconds. |\n| `turn_left` | 1 s | Steer left at a fixed gentle rate for one second. |\n| `turn_right` | 1 s | Steer right at a fixed gentle rate for one second. |\n\nSuccess requires both goals at the same time. The terminal score measures only\narrived cars, with a small time bonus on full success. Repeated goal visits\ncannot farm score. Thinking freezes the shared world; both drivers must submit\nbefore a tick advances. Batches are open-loop, so inspect the next windshield\nframe before committing a long batch. Use the playbook for tested observations\nand uncertainties, not invented map coordinates."}, "bridge-playbook-r1": {"name": "playbook.md · round 1", "content": "# Blue round 1 experience\n\nPublic result: success, both cars arrived at 71 simulation seconds; score 88.1667; blocked_moves 2. No inherited playbooks were provided. Observations used only bound RGB frames and public feedback.\n\n## Tested observations\n\n- Red crossed first while blue yielded on the starting bank. Blue initially turned right twice and moved forward once; this approached the near bridge pillar rather than a roomy refuge.\n- Turning left four times and reversing twice moved blue outward/backward, but the second reverse encountered the road edge. Turning right twice and reversing twice also ended against an edge. Despite this, red emerged alongside blue on the left.\n- Four waits did not visibly move the red car. Forward once let blue proceed alongside it. Turning left twice and moving forward then reported contact with the other car: its visible side had not yet fully cleared blue's footprint.\n- Turning right twice and moving forward once cleared red. Four left turns, one forward, then four right turns aligned blue almost exactly with the bridge centerline. This was verified in the windshield, not inferred from hidden coordinates.\n- Four forwards crossed most of the bridge without contact. Two more forwards reached the far bank, but did not enter the destination pad. The dashboard obscured nearby pavement and the goal disk: its disappearance under the hood did not prove arrival.\n- Waiting four seconds, reversing once, then waiting eight seconds produced no arrival feedback. Two forwards then reached the actual pad; the second was cut short at joint success. The decisive public event was `inside your destination pad; remain here for joint completion`.\n\n## Hypotheses and uncertainties\n\n- Blue's outward position on the broad starting bank was sufficient for red to pass, but exact clearance and travel distances were not available. The sequence is specific to this episode's bridge placement.\n- Red appeared stationary near its destination after passing; its private actions and arrival status were unavailable. Do not infer those from an unchanged windshield alone.\n- Near-goal grass filling the windshield can still mean the car is short of the pad because the hood hides the immediate road. Use the explicit destination event when available.\n\n## Useful next experiments\n\n- Try yielding earlier by reversing onto the broad bank before approaching the bridge entrance.\n- Keep a straight heading until the other car's entire footprint has passed; then center for the bridge.\n- On a clear straight final approach, continue in short forward batches until explicit pad feedback instead of prematurely waiting or reversing merely because the disk is occluded by the hood."}, "bridge-playbook-r4": {"name": "playbook.md · round 4", "content": "# Blue round 4 experience\n\nPublic terminal result: success, both cars arrived at 41 simulation seconds, score 93.1667, blocked_moves 0. Used bound RGB and public feedback, inherited blue round 1–3 notes, and round 3 API history. No peer private actions or geometry channels were used.\n\n## Tested observations\n\n- Four left turns and one forward established a lateral offset on the starting bank without any stop warning. Four right turns restored the bridge-facing heading, followed by two waits. At 12 s red was approaching the near bridge exit on the right of the windshield.\n- Four waits brought time to 16 s, with red visibly alongside on the right. Unlike round 3, blue then spent the next four seconds turning right instead of waiting. At 20 s red was still at the far right of the turned windshield, while the intended forward path angled toward the bridge centerline ahead of it.\n- One forward at 20–22 s completed without contact. Four left turns then restored an exactly centered bridge view at 26 s. This saved four seconds versus the round 3 sequence; the resulting public blocked count was zero.\n- Four forwards reached near the far exit at 34 s; two more reached the bank at 38 s. A further forward reached 40 s with the goal hidden under the hood and no arrival event. One more forward was interrupted at 41 s by joint success and explicit destination-pad feedback.\n\n## Hypotheses and uncertainties\n\n- Turning in place while the other car passes can reduce stationary waiting before re-centering, provided subsequent actual RGB confirms a usable path. The tested sequence is episode-specific, not a guaranteed policy for varied bridge positions.\n- Red remaining partly visible on the right at 20 s did not block this forward path. Conversely, disappearance alone still cannot establish clearance; here the successful forward and zero blocked count verified the maneuver.\n- Exact distances, footprints, and peer controls were not available. Goal occlusion by the hood did not establish arrival; public pad feedback did.\n\n## Useful next experiments\n\n- Re-test early left-offset yielding and in-place re-centering preparation against the actual bank and passing car views.\n- Explore shorter wait intervals only with visual checks; this round established safe forward re-centering at 20 s, not earlier.\n- Retain short final approach actions until explicit destination feedback."}, "herding-task": {"name": "task.md", "content": "# Cooperative shepherding — first-person 3D\n\nYou control the blue dog through a low, first-person eye-height camera. Together, guide all\n4 cream sheep into the fenced pen and keep all of them inside for five\ncontinuous simulation seconds. The limit is 180 seconds. The other dog\nis a moving guide object and the sheep are target objects; they are visible\nonly when they fall in front of your camera.\n\nThe raw RGB frame is a diagnostic first-person view: green pasture and a brown\nfence establish ground and scale, the large gate opening is the target, and the 4\ncream sheep are the animals to guide. There is no vehicle or dashboard in this\ndog-eye view. The same camera exports `normal` and `depth`\nPNG files for operator diagnosis; those files are not additional policy input.\nYour observations do not include numeric coordinates or the other dog's action.\n\nSheep continuously move away from nearby dogs, weakly gather while pressured,\nand separate more strongly under very close pressure. Their behavior is\ndeterministic. Dogs cannot pass the pen fence except through its opening, and\nthe sheep can leave the pen again. Turning changes facing only; pressure depends\non dog position. Waiting and turning still advance world time, while thinking\ndoes not.\n\n| Action | Fixed duration | Meaning |\n| --- | ---: | --- |\n| `wait` | 1 s | Hold position for one second. |\n| `forward` | 1 s | Walk forward at a fixed low speed for one second. |\n| `backward` | 1 s | Walk backward at a fixed low speed for one second. |\n| `turn_left` | 1 s | Turn left at a fixed gentle rate for one second. |\n| `turn_right` | 1 s | Turn right at a fixed gentle rate for one second. |\n\nBoth dogs submit before the shared clock advances. A batch is open-loop, so use\nthe next camera frame before committing to several actions. The terminal\nscore is based on the fraction currently inside, with a time bonus only after\nthe five-second hold; repeated entries cannot farm score. Use playbooks for\ntested visual cues and uncertainties, not invented coordinates."}, "herding-playbook-r1": {"name": "playbook.md · round 1", "content": "# Blue round 1 experience\n\n## Public result\n\nTimed out at 180 s: success false, score 60, 3 of 4 sheep in pen, stable_ticks 0, panic_ticks 74, blocked_moves 24. No inherited playbooks were supplied.\n\n## Observations and actions\n\n- Initially all four sheep were ahead, between the dog and the labeled gate. Blue advanced three seconds, adjusted left then right, and advanced another seven seconds by t15. Sheep spread across the gate approach; one was visibly outside the right post.\n- Holding four seconds at t15 let the central sheep move deeper while the lateral sheep remained outside the opening. Close forward pressure produced visibly wider spacing.\n- Blue moved to the right flank, then spent substantial time turning. At t54–64 sheep visible through the fence misleadingly suggested containment. A six-second hold did not finish the task.\n- At t81–84 forward movement returned `blocked by the other dog`, despite the other dog being mostly outside the forward image. A small rightward detour followed by a leftward approach eventually entered the opening.\n- At t104–110 four sheep bodies appeared near the far-right fence from the gate view. This did not mean all four were inside: a sheep on the opposite side of that fence could visually overlap the interior group.\n- Retreating and moving outside the right gatepost exposed the remaining sheep close to the fence and the other dog at t131 and t157–170. Blue and the other dog were often too close together there. Late backing away and repositioning did not recover it before timeout.\n\n## Tested lessons and uncertainties\n\n- Trust terminal feedback over visual impressions of containment. Fence occlusion and overlapping sheep made a count from one direction unreliable.\n- Turning consumes time and leaves pressure active at the same location; long turn batches near a sheep were costly. Larger navigation batches lost opportunities to correct direction.\n- The other dog can block movement even when barely visible. A distinct approach lane is useful.\n- The last sheep was outside the right fence. I did not establish a successful way to route it around the right gatepost. Pressure from both dogs near that corner may have trapped or scattered it; this is a hypothesis, not a tested rule.\n\n## Useful next experiments\n\n- Approach more slowly, with one or two forward actions at a time near the flock, maintaining a wider distance to avoid the early lateral split.\n- Prioritize an outside sheep immediately, before moving through the gate after interior sheep.\n- Visually locate both the sheep and opening before circling: aim to get on the sheep's outer side with enough separation, then guide it laterally toward the opening before forward pressure.\n- Compare short waits against continued approach once the flock is aligned, and inspect whether the rightmost body is on the near or far side of the fence."}, "herding-playbook-r4": {"name": "playbook.md · round 4", "content": "# Blue round 4 experience\n\n## Public result\n\nSuccess at 105 s; score 88.3333; all 4 sheep in pen; stable_ticks 5; panic_ticks 0; blocked_moves 0. Exactly one bound episode. Inherited supplied blue round 1, 2, and 3 notes and authorized histories were consulted. Decisions used actual RGB, not geometry frames.\n\n## Observations and actions\n\n- Began with one backward and held through t8. Other dog appeared close left, and the rightmost sheep approached the right post.\n- At t8–16 used right-three, forward-two, left-three to move to the right. Held through t24. The flock gathered but mostly remained left of the opening.\n- One forward and three waits to t28 coincided with a leftward shift. Backed twice and held through t42, allowing the other dog's left-side movement to gather sheep rightward. Two forward and two waits to t46 again left much of the flock left of the opening.\n- Backed twice and turned left three times to t51; then forward-three and right-two to t56 established a more central rear position. Other dog was now visibly on the left flank.\n- Single forward steps at t57, t65, and t77, with pauses between, accompanied gradual progress. By t72–76 the leftmost sheep moved around the left post toward the opening. The rightmost remained near the right post.\n- At t80–88 moved right-three, forward-two, left-three. At t88–98 widened again with right-four, forward-two, left-four. Sheep overlapped the right post heavily in the image.\n- Submitted right-five, forward-two, left-five at t98. Success occurred at t105 after the two forward steps; the final five left turns were not executed. Terminal camera faced the right fence, so public feedback, not that final image, established containment.\n\n## Lessons and uncertainties\n\n- Short approaches, retreats when right-side pressure displaced sheep leftward, and a central rear position again yielded a zero-panic successful joint episode. This is not evidence that blue alone caused success.\n- The early rightward reposition was not enough to solve alignment; holding far right also opposed the flock's needed rightward movement. Moving centrally at t51–56 was followed by useful progress while the other dog worked left.\n- Late widening on the right was followed by success without blocked movement. However all sheep had already begun the five-second stability interval before the final forward steps, so those steps cannot be credited as necessary to get them inside.\n- RGB overlap at the right post made apparent outside/inside status unreliable. No early success claim was made from silhouettes.\n- Final broad turn-and-move batches intentionally sacrificed intermediate decisions; these were planned lateral repositions, not evidence that long batches are generally safe near sheep.\n\n## Useful next experiment\n\nTry a central rear alignment sooner after the initial retreat, preserving a separate lane from the other dog. When the leftmost sheep clears the left post, hold or make only a small rightward adjustment and compare with the multiple late widening moves here. A final patient hold may have completed this run without the last movement, but that was not tested."}, "loader-task": {"name": "task.md", "content": "# Quarry work route: clear, deliver, park\n\nYou control the yellow wheel loader, seen from an elevated third-person camera. The camera follows position but keeps a fixed world orientation: the vehicle visibly turns within the image. Complete these\nthree jobs IN ORDER in 360 simulation seconds, without resetting:\n\n1. Put BOTH rocks fully inside the two broad side staging pads, one per pad,\n   at the same time. Each pad has a large dark stone surface and pale rectangular perimeter.\n   The middle lane should be empty. Once achieved, this milestone is retained.\n2. Retrieve EITHER rock. Push or carry it around the OPEN END of the tall\n   cross-wall and into the three-sided collection bunker in the rear yard.\n   The other rock may remain where you left it. You may push rather than carry the rock off the ground. Bucket height and pitch still affect ground contact and steering.\n3. Leave the delivered rock fully inside that bunker. Drive through the tall\n   parking arch alongside it and stop with the entire chassis inside the bay.\n   Any heading is acceptable; brake/wait to settle. The scoop need not fit inside\n   the parking footprint, but it still collides with walls.\n\nNo object attaches magnetically, disappears or teleports. Contact, friction and\ngravity move rocks. The physics stays fixed; the opening side and starting rock\nposes vary across seeds. Reversing, repositioning and pushing from a different\ndirection are allowed. turn_left/turn_right move along a very slow forward arc, not an in-place\npivot. The scoop extends well beyond the chassis and can catch on the ground\nor walls. Your image contains no text or score overlay.\n\n| Action | Fixed duration | Meaning |\n| --- | ---: | --- |\n| `forward` | 1 s | Drive forward for one second; force-limited contact with obstacles. |\n| `backward` | 1 s | Reverse for one second. |\n| `turn_left` | 1 s | Slow forward left arc for one second; not an in-place pivot. |\n| `turn_right` | 1 s | Slow forward right arc for one second; not an in-place pivot. |\n| `raise` | 1 s | Raise the bucket slowly for one second; hold the vehicle. |\n| `lower` | 1 s | Lower the bucket slowly for one second; hold the vehicle. |\n| `curl` | 1 s | Curl the bucket back for one second. |\n| `tip` | 1 s | Tip the bucket forward for one second. |\n| `wait` | 1 s | Brake for one second; gravity and contact continue. |\n| `reverse_left` | 1 s | Reverse along a very slow arc while rotating the vehicle NOSE to its left for one second. Not an in-place pivot. |\n| `reverse_right` | 1 s | Reverse along a very slow arc while rotating the vehicle NOSE to its right for one second. Not an in-place pivot. |\n\nEach action lasts exactly one second. Thinking and observing freeze the world.\nBatch actions only if you want to commit without intermediate decisions. There\nis no live score. At termination, clearing awards 30 points, delivery 35 and\nparking 25, plus up to 10 for finishing early. Milestones cannot be farmed by\nrepeated placement. Keep tested transferable lessons and uncertainties in your\nplaybook; do not mistake a guess about an unseen area for an observation.\n\nThis control profile uses tight, low-speed steering arcs. Turning still uses finite physical force: contact can block it. Straight forward/backward speeds are unchanged."}, "loader-playbook-r1": {"name": "playbook.md · round 1", "content": "# Round 1 — tight steering quarry loader\n\nPublic terminal result: success false, score 30, elapsed 360 s. Clearing succeeded at 114 s; delivery and parking did not succeed. One episode, no reset. No inherited playbooks.\n\n## Observations and tested lessons\n\n- RGB initially showed one rock near each pad's lane-facing edge, an open route around the left end of the cross-wall, and the bunker behind that end. Camera followed position with fixed orientation; chassis remained near image center.\n- Initial repeated forward actions barely moved the first rock. Raising and curling helped free the scoop. Later raising again freed a chassis/scoop contact situation in which forward/reverse steering had made virtually no progress.\n- Tight turns are not guaranteed rotations. Near rocks, batches of 7–10 turn or reverse-turn actions sometimes visibly changed almost nothing. In free space, 18 turn actions could produce a large heading change. Do not calibrate a fixed degrees-per-action from contact-constrained motion.\n- Right-pad clearing worked with a lateral push: after obtaining a southeast-facing heading and a moderately raised, curled bucket, forward batches of 6 and 5 moved the rock fully onto the dark pad. Then reversing briefly and turning left 18 actions aligned with the other rock. Forward 6, right 2, forward 6, forward 8 pushed the left rock onto its pad. Terminal feedback confirms both pads were simultaneously valid at 114 s, during that last push.\n- A visually plausible placement can be valid without any live confirmation. Public feedback remained simply Action completed until termination, when milestone booleans and completion time appeared.\n- Attempting to turn while pushing the left rock toward the bunker repeatedly lost it off the left side. Large forward batches then drove the loader away from the rock. Raised bucket and perspective obscured contact; the rock could appear immediately ahead/behind the bucket before becoming obviously left-behind in a later view.\n- Backing toward a lost rock often contacted it with the rear chassis and failed to reach the desired pushing position. A proper wide reposition needs more clearance than the attempted short reverse/turn sequences.\n\n## Uncertainties and next experiments\n\n- Exact bucket height/pitch for reliable flat-ground centered pushing remains uncertain. The combination that cleared the right pad was above the initial ground-catching posture and curled back, but raising too far may have let the scoop pass above the second rock.\n- Use short 1–3-action approach/push batches around first contact and any steering change, and inspect RGB for the rock relative to the bucket edges, not merely relative to the chassis.\n- Before pushing toward the bunker, back well away and establish the delivery heading while clear of the rock. Test a wide route to the rock's southwest side instead of turning under load. Keep the rock centered; stop immediately if it begins sliding sideways.\n- Delivery and parking were not achieved; no claim about their detailed geometric tolerances is supported by this episode.\n\n## Interface usability\n\n- Actual RGB was available through returned local frame paths and was viewed before each next decision. Public participant API calls worked normally.\n- Enter from the repository directory initially refused because an existing task.md differed. Using the assigned fresh scratch directory fixed entry without resetting or changing the episode.\n- Stderr request_id text precedes JSON in the combined shell capture; separate or strip that prefix before JSON parsing. Long action batches create large ordered result payloads.\n- No live milestone feedback makes pad completion uncertain during play, though terminal completed_at_s resolved it. Bucket/chassis occlusion and low-contrast gray rocks/walls made contact alignment difficult."}, "loader-playbook-r4": {"name": "playbook.md · round 4", "content": "# Round 4 — all three jobs completed\n\nPublic terminal result: success true, score 90.861, elapsed 329 s. Clearing completed at 104 s, delivery at 240 s, parking at 329 s. Exactly one episode; no reset. Read inherited rounds 1–3 via playbook context. Viewed actual RGB after every action batch before the next decision.\n\n## Tested successful route\n\nBucket remained at one raise and one curl for the entire episode. This setting pushed both rocks and delivered one without further adjustment.\n\n- Right pad: raise, curl, right twice, forward twice (6); right three, forward three (12); forward thirteen (25). Rock was fully on the right pad.\n- Left approach: backward six, left eighteen (49); backward eight, left eight (65); forward seven, right sixteen (88); left five, forward three (96); forward six (102); forward six (108). Terminal evidence establishes clear at 104. This approach was substantially more efficient than inherited round 3's left-rock maneuvering.\n- Forward twelve (120), left twice, forward nine (131) brought the left rock toward the cross-wall end, but too close to the end for immediate easy passage. The intended small steering adjustment under load barely altered heading.\n- Repositioning consumed time: backward four, left five, forward three (143); backward seven, right nine, forward five (164); left eight (172); left four, forward three (179, blocked at wall); backward five, left five, forward four (193); backward six, right three, forward four (206). At 206 the loader was on the rock's lower/right side, facing image-upper-left with the rock ahead of the scoop and the wall on its right.\n- Forward six (212), forward eight (220), forward ten (230) pushed around the open wall end. Contact gradually changed heading toward image-upper-right; unlike earlier wall-pinned attempts, each batch visibly advanced the rock relative to the end. Forward eight (238), forward six (244) delivered it into the bunker. Terminal delivery time was 240. The rock was visibly inside when backing out.\n- Backward eight, right nine (261) faced along the corridor toward the parking arch. Forward twelve (273) reached the left post; forward seven (280) made essentially no progress, so the post was blocking the scoop.\n- Backward four, right four, forward six (294) made clearance toward the cross-wall side of the corridor. Left four, forward seven (305) moved across the arch front. Left seven (312) was partly constrained by the right post. Backward three, left five (320) aligned the loader through the opening. Forward eight, wait (329) ended successfully.\n\nHere left/right means turn_left/turn_right; backward and forward are the exact atomic actions, and counts are one-second repeats. Route counts describe this seed's evidence, not a universally transferable script.\n\n## Transferable observations\n\n- A small scoop adjustment at episode start sufficed; repeated bucket experiments were unnecessary here.\n- Free-space turn counts can rotate much more than the same counts in contact. Five left turns after retreat made a large heading change; attempts while touching the wall/post barely rotated. Check actual RGB, not intended heading.\n- To unpin the wall-end approach, retreat and reposition onto the rock's image-lower/right side, then push image-upper-left until the rock is around the wall. The successful alignment at 206 was key. Once passage began, straight pushing eventually led into the bunker opening without additional steering.\n- Arch posts collide with the protruding scoop. Approaching along the arch face can stop at a post even though the chassis has clearance. Move farther toward the cross-wall side before traversing the opening, then retreat before turning into the bay.\n- Parking succeeded after eight forward seconds from the aligned entrance followed by wait. The terminal image shows chassis inside the bay; heading need not be square to its walls.\n\n## Uncertainties / next experiments\n\n- Clearing and delivery remain visually ambiguous near boundaries because live feedback never reports milestones. Only terminal timestamps confirm clear 104 and delivery 240.\n- The 131–206 repositioning and 273–320 parking corrections offer obvious time savings. Establish the lower/right pushing position before nearing the wall; aim into the center of the arch rather than driving along its face. These shorter alternatives are proposals, not tested sequences.\n- No historical originals were needed this round; inherited successful clearing configuration transferred well, but this should not be assumed for every seed.\n\n## Interface usability\n\n- Assigned scratch directory initially did not exist, so an attempted command with that working directory failed before execution. Creating it from the existing workspace fixed entry without affecting the episode.\n- All participant calls and local RGB paths worked; no transport failures. CLI stderr request_id precedes JSON in combined shell output, so parsing from the opening brace and displaying only current feedback/frame avoided huge action arrays.\n- Low-contrast geometry and cab/scoop occlusion still make contact alignment hard. No live milestone feedback; terminal result was clear and complete."}, "hns-hider-audit-final-enclosure": {"name": "hider-audit-final-enclosure.md", "content": "# Defend access, not just the camera view\n\nUse fixed boundaries to reduce the number of approaches that movable cover must close. A nearby wall–partition recess with one controllable block is a promising starting candidate; it is not a guaranteed winning layout.\n\nEnter the protected side before completing closure. Make small, visually checked translations or pivots. Every adjustment can close one end while opening the other. After the **last** adjustment and grab release, inspect both outer ends and every object-to-object seam again.\n\nProbe plausible ground-level openings with short `goto` segments, with grab released. A successful crossing disproves closure. A stop only establishes obstruction along that attempted path: it may be the wall or an oblique collision rather than an impassable slit. Back off and test a different alignment when uncertain. Earlier tests become stale after moving any component.\n\nKeep the final position away from exposed ends and seams where space permits. Finish once the best available shelter has been checked; unused preparation does not reduce the seeker's allowance.\n\nCounterevidence: rollout3's apparently closed diagonal panel still lost. Rollout6's tested seam was followed by extensive further adjustments and eventually an elevated breach. More objects and narrow-looking gaps are not certificates of safety."}, "hns-seeker-verify-object-control": {"name": "seeker-verify-object-control.md", "content": "# Verify object control with a small experiment\n\nApproach the intended object's face, inspect, then press `pull(1)` in a separate segment. Test a short straight displacement before attempting transport or rotation. Evidence of control is an object changing its relationship to fixed room landmarks while remaining nearby—not the button press or constant apparent size alone.\n\nIf neither the camera nor object moves appreciably, the test is ambiguous: a tether to an immobile object, a jam, or other contact can explain it. Release and test retreat separately. If the camera retreats while the object stays behind, the attempted transport did not succeed; this still does not establish permanent immovability.\n\nSuccessful ramp transport means failed early grabs should not establish that all ramps are fixed.\n\nDuring transport, use small turns and translations with inspection between them. Release and inspect the ramp's actual orientation before climbing."}, "hns-seeker-ramp-crossing-and-landing": {"name": "seeker-ramp-crossing-and-landing.md", "content": "# A ramp route has three separate milestones\n\n1. **Ascent:** approach the broad sloped face from its low end, not the triangular side or tall back. Confirm elevation through newly visible obstacle tops and previously occluded space.\n2. **Crossing:** check whether the high end leads across the particular barrier that blocks access. Elevation beside a wall is not passage over it. If an ascent repeatedly returns to the same blocked side, inspect ramp placement rather than repeating the same run. Where manipulation is verified, bring the high end closer and orient the uphill route toward the intended crossing.\n3. **Landing and capture:** shorten movements near the crest to one or two actions. Reacquire the hider and supporting surfaces before committing to a lateral move or descent. A long straight run can overshoot; an early strafe can lose elevation. Brief braking or neutral controls are experiments, not guarantees of stopping.\n\nRamp-assisted access succeeded in multiple layouts, including an already positioned ramp. Try existing placement before transporting it. However, repeated elevated views in losing games did not yield access to the protected pocket. Plan the destination beyond the crest, not merely a higher viewpoint. A win without the hider in the final image does not establish the exact landing or capture geometry."}}
+</script>
+</main>
+
+<footer class="wrap footer">
+  <a class="footer-brand" href="https://mirros.ai"><img src="assets/img/mirros-mark.svg" width="28" height="28" alt="">MirroS Research</a>
+  <span>AgentGarten: Code Worlds for Evolving Agents · 2026</span>
+  <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+</footer>
+
+<!-- Generated from data/gallery.json by scripts/sync_gallery.py. -->
+<script type="application/json" id="gallery-data">
+[
+  {
+    "id": "lid",
+    "title": "Lower the lid",
+    "video": "media/gallery/lid.mp4",
+    "poster": "media/gallery/lid.jpg"
+  },
+  {
+    "id": "pipette",
+    "title": "Pipette a sample",
+    "video": "media/gallery/pipette.mp4",
+    "poster": "media/gallery/pipette.jpg"
+  },
+  {
+    "id": "chess",
+    "title": "Take turns at chess",
+    "video": "media/gallery/chess.mp4",
+    "poster": "media/gallery/chess.jpg"
+  },
+  {
+    "id": "cooking",
+    "title": "Toss and catch",
+    "video": "media/gallery/cooking.mp4",
+    "poster": "media/gallery/cooking.jpg"
+  },
+  {
+    "id": "catapult",
+    "title": "Launch the ball",
+    "video": "media/gallery/catapult.mp4",
+    "poster": "media/gallery/catapult.jpg"
+  },
+  {
+    "id": "crane",
+    "title": "Load the truck",
+    "video": "media/gallery/crane.mp4",
+    "poster": "media/gallery/crane.jpg"
+  },
+  {
+    "id": "torch",
+    "title": "Light a torch",
+    "video": "media/gallery/torch.mp4",
+    "poster": "media/gallery/torch.jpg"
+  },
+  {
+    "id": "cannon",
+    "title": "Aim and fire",
+    "video": "media/gallery/cannon.mp4",
+    "poster": "media/gallery/cannon.jpg"
+  },
+  {
+    "id": "wingsuit",
+    "title": "Fly through a gap",
+    "video": "media/gallery/wingsuit.mp4",
+    "poster": "media/gallery/wingsuit.jpg"
+  },
+  {
+    "id": "carrier",
+    "title": "Land on the deck",
+    "video": "media/gallery/carrier.mp4",
+    "poster": "media/gallery/carrier.jpg"
+  },
+  {
+    "id": "horse",
+    "title": "Ride the horse",
+    "video": "media/gallery/horse.mp4",
+    "poster": "media/gallery/horse.jpg"
+  },
+  {
+    "id": "racing",
+    "title": "Race in a shared world",
+    "video": "media/gallery/racing.mp4",
+    "poster": "media/gallery/racing.jpg"
+  },
+  {
+    "id": "boxing",
+    "title": "Spar with a robot",
+    "video": "media/gallery/boxing.mp4",
+    "poster": "media/gallery/boxing.jpg"
+  },
+  {
+    "id": "soccer",
+    "title": "Shoot past a keeper",
+    "video": "media/gallery/soccer.mp4",
+    "poster": "media/gallery/soccer.jpg"
+  },
+  {
+    "id": "ants",
+    "title": "Pass the food",
+    "video": "media/gallery/ants.mp4",
+    "poster": "media/gallery/ants.jpg"
+  },
+  {
+    "id": "rover",
+    "title": "Drive a moon rover",
+    "video": "media/gallery/rover.mp4",
+    "poster": "media/gallery/rover.jpg"
+  },
+  {
+    "id": "tpv-explore",
+    "title": "Explore the lakeshore",
+    "video": "media/gallery/tpv-explore.mp4",
+    "poster": "media/gallery/tpv-explore.jpg"
+  },
+  {
+    "id": "roller-coaster",
+    "title": "Ride the roller coaster",
+    "video": "media/gallery/roller-coaster.mp4",
+    "poster": "media/gallery/roller-coaster.jpg"
+  }
+]
+</script>
+<script src="assets/js/site.js?v=82888736c6" defer></script>
+</body>
+</html>
